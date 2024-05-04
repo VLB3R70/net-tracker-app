@@ -16,13 +16,14 @@ class NettrackerClient(
                 prettyPrint = true
                 isLenient = true
                 ignoreUnknownKeys = true
+                allowStructuredMapKeys=true
             })
         }
     }, private val serverAddress: String
 ) {
 
     suspend fun getNetworks(): List<Network> {
-        val result: List<Network> = listOf(client.get("http://$serverAddress:5000/networks").body())
+        val result: List<Network> = client.get("http://$serverAddress:5000/networks").body()
         return result
     }
 

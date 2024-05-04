@@ -7,10 +7,10 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 class Greeting {
-    private val client = NettrackerClient(serverAddress = "192.168.1.132")
+    private val client = NettrackerClient(serverAddress = "192.168.1.139")
 
     suspend fun greeting(): String {
-        val networks = client.getNetworkFromName("redCasa")
+        val networks = client.getNetworks()
         return Json.encodeToString(networks)
     }
 }
