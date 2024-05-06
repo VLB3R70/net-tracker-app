@@ -8,6 +8,7 @@ import model.Network
 import io.ktor.client.plugins.contentnegotiation.*
 import kotlinx.serialization.json.*
 import io.ktor.serialization.kotlinx.json.*
+import model.Device
 
 class NettrackerClient(
     private val client: HttpClient = HttpClient(CIO) {
@@ -19,7 +20,7 @@ class NettrackerClient(
                 allowStructuredMapKeys=true
             })
         }
-    }, val serverAddress: String
+    }, var serverAddress: String
 ) {
 
     suspend fun getNetworks(): List<Network> {
@@ -31,8 +32,12 @@ class NettrackerClient(
         return client.get("http://$serverAddress:5000/networks/$networkName").body()
     }
 
-    suspend fun getDeviceFromAddress(networkName: String, address:String){
+    suspend fun getDeviceFromAddress(networkName: String, address:String): Device{
         return client.get("http://$serverAddress:5000/networks/$networkName/devices/$address").body()
+    }
+
+    suspend fun getDevices(networkName: String): List<Device>{
+        return client.get("http://$serverAddress:5000/networks/$networkName/devices").body()
     }
 
 }
