@@ -32,7 +32,7 @@ fun App() {
 //                }
 //            }
 //            GreetingView(text)
-            val client = NettrackerClient(serverAddress = "192.168.1.139")
+            val client = NettrackerClient(serverAddress = null.toString())
             MainPage(client)
         }
     }

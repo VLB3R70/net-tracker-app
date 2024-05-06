@@ -19,7 +19,7 @@ class NettrackerClient(
                 allowStructuredMapKeys=true
             })
         }
-    }, private val serverAddress: String
+    }, val serverAddress: String
 ) {
 
     suspend fun getNetworks(): List<Network> {

@@ -52,7 +52,9 @@ fun MainPage(client: NettrackerClient) {
                 )
                 Button(
                     shape = MaterialTheme.shapes.medium,
-                    onClick = {/**/},
+                    onClick = {
+                              client.serverAddress
+                    },
                 ){
                     Text("Buscar")
                 }
