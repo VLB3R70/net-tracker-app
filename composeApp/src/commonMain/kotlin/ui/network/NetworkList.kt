@@ -1,5 +1,6 @@
 package ui.network
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,31 +16,39 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import core.NettrackerClient
-import kotlinx.coroutines.launch
 import model.Network
+import ui.errors.NetworkErrorCard
 
 @Composable
 fun NetworkListView(navController: NavHostController, client: NettrackerClient?) {
     var networks by remember { mutableStateOf(emptyList<Network>()) }
+    var errors by remember { mutableStateOf(false) }
+    var capturedException: Exception? by remember { mutableStateOf(null) }
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(true) {
-        scope.launch {
+        try {
             if (client != null) {
-                networks = try {
-                    client.getNetworks()
-                } catch (e: Exception) {
-                    networks
-                }
+                networks = client.getNetworks()
             }
+        } catch (e: Exception) {
+            errors = true
+            capturedException = e
         }
     }
 
-    LazyColumn(
-        modifier = Modifier.padding(8.dp).fillMaxWidth(),
-    ) {
-        items(networks) { network ->
-            NetworkCard(navController = navController, network)
+
+    if (errors){
+        Column {
+            capturedException?.let { NetworkErrorCard(it) }
+        }
+    }else{
+        LazyColumn(
+            modifier = Modifier.padding(8.dp).fillMaxWidth(),
+        ) {
+            items(networks) { network ->
+                NetworkCard(navController = navController, network)
+            }
         }
     }
 }

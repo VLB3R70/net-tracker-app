@@ -20,8 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.navigation.Navigator
-import androidx.navigation.Navigator.Extras
 import core.NettrackerClient
 import net_tracker_app.composeapp.generated.resources.Res
 import net_tracker_app.composeapp.generated.resources.find_server

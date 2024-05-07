@@ -4,4 +4,5 @@
     <string name="find_server">Find</string>
     <string name="network_address_on_list">Address</string>
     <string name="network_submask_on_list">Subnet mask</string>
+    <string name="services_device_card">Active services</string>
 </resources>
