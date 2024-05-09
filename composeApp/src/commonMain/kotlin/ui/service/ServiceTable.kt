@@ -4,8 +4,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Divider
-import androidx.compose.material.Text
+import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,7 +26,7 @@ fun ServiceTable(services: List<Service>) {
             Text(text = "Port", modifier = Modifier.weight(1f), fontWeight = FontWeight.Bold)
             Text(text = "Protocol", modifier = Modifier.weight(1f), fontWeight = FontWeight.Bold)
         }
-        Divider(
+        HorizontalDivider(
             modifier = Modifier.fillMaxWidth().padding(8.dp)
         )
         services.forEach { service ->

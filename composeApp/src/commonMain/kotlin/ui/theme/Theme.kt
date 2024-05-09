@@ -1,20 +1,20 @@
-package org.vlb3r70.nettracker.ui.theme
-import android.app.Activity
-import android.os.Build
+package ui.theme
+
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalView
-import androidx.core.view.WindowCompat
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import net_tracker_app.composeapp.generated.resources.Res
+import net_tracker_app.composeapp.generated.resources.dosisregular
+import net_tracker_app.composeapp.generated.resources.inconsolataregular
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.Font
 
 private val lightScheme = lightColorScheme(
     primary = primaryLight,
@@ -246,10 +246,7 @@ private val highContrastDarkColorScheme = darkColorScheme(
 
 @Immutable
 data class ColorFamily(
-    val color: Color,
-    val onColor: Color,
-    val colorContainer: Color,
-    val onColorContainer: Color
+    val color: Color, val onColor: Color, val colorContainer: Color, val onColorContainer: Color
 )
 
 val unspecified_scheme = ColorFamily(
@@ -257,34 +254,42 @@ val unspecified_scheme = ColorFamily(
 )
 
 @Composable
-fun AppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
-    content: @Composable() () -> Unit
+fun NettrackerTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit
 ) {
-  val colorScheme = when {
-      dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-          val context = LocalContext.current
-          if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-      }
-      
-      darkTheme -> darkScheme
-      else -> lightScheme
-  }
-  val view = LocalView.current
-  if (!view.isInEditMode) {
-    SideEffect {
-      val window = (view.context as Activity).window
-      window.statusBarColor = colorScheme.primary.toArgb()
-      WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
-    }
-  }
+    @OptIn(ExperimentalResourceApi::class) val bodyFontFamily =
+        FontFamily(Font(Res.font.inconsolataregular, weight = FontWeight.Normal))
 
-  MaterialTheme(
-    colorScheme = colorScheme,
-    typography = AppTypography,
-    content = content
-  )
+    @OptIn(ExperimentalResourceApi::class) val displayFontFamily =
+        FontFamily(Font(Res.font.dosisregular, weight = FontWeight.Normal))
+
+// Default Material 3 typography values
+    val baseline = Typography()
+
+    val appTypography = Typography(
+        displayLarge = baseline.displayLarge.copy(fontFamily = displayFontFamily),
+        displayMedium = baseline.displayMedium.copy(fontFamily = displayFontFamily),
+        displaySmall = baseline.displaySmall.copy(fontFamily = displayFontFamily),
+        headlineLarge = baseline.headlineLarge.copy(fontFamily = displayFontFamily),
+        headlineMedium = baseline.headlineMedium.copy(fontFamily = displayFontFamily),
+        headlineSmall = baseline.headlineSmall.copy(fontFamily = displayFontFamily),
+        titleLarge = baseline.titleLarge.copy(fontFamily = displayFontFamily),
+        titleMedium = baseline.titleMedium.copy(fontFamily = displayFontFamily),
+        titleSmall = baseline.titleSmall.copy(fontFamily = displayFontFamily),
+        bodyLarge = baseline.bodyLarge.copy(fontFamily = bodyFontFamily),
+        bodyMedium = baseline.bodyMedium.copy(fontFamily = bodyFontFamily),
+        bodySmall = baseline.bodySmall.copy(fontFamily = bodyFontFamily),
+        labelLarge = baseline.labelLarge.copy(fontFamily = bodyFontFamily),
+        labelMedium = baseline.labelMedium.copy(fontFamily = bodyFontFamily),
+        labelSmall = baseline.labelSmall.copy(fontFamily = bodyFontFamily),
+    )
+    val colorScheme = when {
+        darkTheme -> darkScheme
+        else -> lightScheme
+    }
+
+    MaterialTheme(
+        colorScheme = colorScheme, typography = baseline, content = content
+    )
 }
 

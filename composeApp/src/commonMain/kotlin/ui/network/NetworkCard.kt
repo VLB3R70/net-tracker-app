@@ -2,13 +2,14 @@ package ui.network
 
 import Routes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,15 +25,12 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalResourceApi::class, ExperimentalMaterialApi::class)
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun NetworkCard(navController: NavController, network: Network) {
     Card(
-        modifier = Modifier.padding(8.dp).fillMaxWidth(),
-        elevation = 4.dp,
-        onClick = {
-            navController.navigate("${Routes.DevicesPage.name}/${network.networkName}")
-        }
+        modifier = Modifier.padding(8.dp).fillMaxWidth().clickable { navController.navigate("${Routes.DevicesPage.name}/${network.networkName}") },
+        elevation = CardDefaults.cardElevation(4.dp),
     ) {
         Row(
             modifier = Modifier.padding(8.dp), verticalAlignment = Alignment.CenterVertically
