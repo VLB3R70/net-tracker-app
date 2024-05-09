@@ -32,7 +32,7 @@ import net_tracker_app.composeapp.generated.resources.windows
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import ui.service.ServiceList
+import ui.service.ServiceTable
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -81,7 +81,7 @@ fun DeviceCard(device: Device) {
                         fontWeight = FontWeight.Bold,
                         text = stringResource(Res.string.services_device_card)
                     )
-                    ServiceList(device.services)
+                    ServiceTable(device.services)
                 }
             }
         }

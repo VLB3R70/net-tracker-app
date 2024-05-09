@@ -1,3 +1,4 @@
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
@@ -9,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -20,7 +22,9 @@ import androidx.navigation.navArgument
 import core.NettrackerClient
 import net_tracker_app.composeapp.generated.resources.Res
 import net_tracker_app.composeapp.generated.resources.app_name
+import net_tracker_app.composeapp.generated.resources.arrow_left_solid
 import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import ui.MainPage
 import ui.device.DeviceList
@@ -38,19 +42,21 @@ fun NetTrackerAppBar(
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    TopAppBar(modifier = modifier,
+    TopAppBar(
+        modifier = modifier,
         title = { Text(text = stringResource(Res.string.app_name)) },
         backgroundColor = MaterialTheme.colors.primary,
         navigationIcon = {
-            if (canNavigateBack) {
+            if (currentScreen == Routes.Start) {
                 IconButton(onClick = navigateUp) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Back"
+                        contentDescription = ""
                     )
                 }
             }
-        })
+        }
+    )
 }
 
 @Composable
@@ -60,7 +66,7 @@ fun App() {
 
     MaterialTheme {
         Surface(
-            modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background
+            modifier = Modifier.fillMaxSize()
         ) {
             Scaffold(topBar = {
                 NetTrackerAppBar(currentScreen = Routes.Start,
@@ -85,7 +91,7 @@ fun App() {
                     composable(
                         "${Routes.DevicesPage.name}/{networkName}",
                         arguments = listOf(navArgument("networkName") { type = NavType.StringType })
-                    ) {backStackEntry ->
+                    ) { backStackEntry ->
                         val networkName = backStackEntry.arguments?.getString("networkName")
                         if (networkName != null) {
                             DeviceList(navController, client, networkName)

@@ -51,7 +51,8 @@ kotlin {
             implementation(libs.ktor.client.cio)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.navigation.compose)
-            implementation(libs.androidx.material)
+            implementation(libs.androidx.foundation.android)
+            implementation(libs.androidx.material3.android)
         }
     }
 }
@@ -89,5 +90,9 @@ android {
         debugImplementation(libs.compose.ui.tooling)
         implementation(libs.kotlinx.coroutines.android)
     }
+}
+dependencies {
+    implementation(libs.androidx.material3.android)
+    implementation(libs.androidx.core)
 }
 

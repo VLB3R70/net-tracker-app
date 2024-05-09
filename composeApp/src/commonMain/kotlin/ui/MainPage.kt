@@ -26,7 +26,7 @@ import net_tracker_app.composeapp.generated.resources.find_server
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalAnimationApi::class, ExperimentalResourceApi::class)
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun MainPage(client: NettrackerClient, navController: NavHostController) {
     var text by remember { mutableStateOf(TextFieldValue("")) }
@@ -37,7 +37,11 @@ fun MainPage(client: NettrackerClient, navController: NavHostController) {
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
-            TextField(value = text, onValueChange = { newText -> text = newText })
+            TextField(
+                value = text,
+                onValueChange = { newText -> text = newText },
+                singleLine = true,
+            )
             Button(
                 onClick = {
                     client.serverAddress = text.text
