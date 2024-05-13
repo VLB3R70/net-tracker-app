@@ -54,7 +54,7 @@ fun DeviceCard(device: Device) {
                     device.osType.contains("Linux") -> Res.drawable.linux
                     device.osType.contains("Amazon") -> Res.drawable.amazon
                     device.osType.contains("Windows") -> Res.drawable.windows
-                    device.osType.contains("MAC") || device.osType.contains("IOS") -> Res.drawable.apple
+                    device.osType.contains("Apple") || device.osType.contains("iOS") -> Res.drawable.apple
                     device.osType.contains("Android") -> Res.drawable.android
                     else -> Res.drawable.globe_solid
                 }
