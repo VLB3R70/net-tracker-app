@@ -29,7 +29,8 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun NetworkCard(navController: NavController, network: Network) {
     Card(
-        modifier = Modifier.padding(8.dp).fillMaxWidth().clickable { navController.navigate("${Routes.DevicesPage.name}/${network.networkName}") },
+        modifier = Modifier.padding(8.dp).fillMaxWidth()
+            .clickable { navController.navigate("${Routes.DevicesPage.name}/${network.networkName}") },
         elevation = CardDefaults.cardElevation(4.dp),
     ) {
         Row(
@@ -46,8 +47,8 @@ fun NetworkCard(navController: NavController, network: Network) {
                     text = network.networkName,
                     fontSize = 30.sp,
                 )
-                Text(stringResource(Res.string.network_address_on_list) + network.address)
-                Text(stringResource(Res.string.network_submask_on_list) + network.subnetMask.toString())
+                Text(stringResource(Res.string.network_address_on_list) + " " + network.address)
+                Text(stringResource(Res.string.network_submask_on_list) + " " + network.subnetMask.toString())
             }
         }
     }

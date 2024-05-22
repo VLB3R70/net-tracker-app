@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">Net Tracker</string>
-    <string name="find_server">Find</string>
+    <string name="find_server">Search</string>
     <string name="network_address_on_list">Address</string>
     <string name="network_submask_on_list">Subnet mask</string>
     <string name="services_device_card">Active services</string>
+    <string name="server_address_main_page">Server IP Address</string>
 </resources>

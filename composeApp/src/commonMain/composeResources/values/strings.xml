@@ -5,4 +5,5 @@
     <string name="network_address_on_list">Dirección</string>
     <string name="network_submask_on_list">Máscara de subred</string>
     <string name="services_device_card">Servicios activos</string>
+    <string name="server_address_main_page">Dirección IP del servidor</string>
 </resources>

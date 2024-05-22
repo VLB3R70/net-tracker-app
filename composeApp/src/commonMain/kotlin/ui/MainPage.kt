@@ -2,9 +2,7 @@ package ui
 
 import Routes
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -22,6 +20,7 @@ import androidx.navigation.NavHostController
 import core.NettrackerClient
 import net_tracker_app.composeapp.generated.resources.Res
 import net_tracker_app.composeapp.generated.resources.find_server
+import net_tracker_app.composeapp.generated.resources.server_address_main_page
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 
@@ -33,22 +32,18 @@ fun MainPage(client: NettrackerClient, navController: NavHostController) {
         modifier = Modifier.fillMaxSize().padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth()
+        TextField(value = text,
+            onValueChange = { newText -> text = newText },
+            singleLine = true,
+            placeholder = { Text(stringResource(Res.string.server_address_main_page)) })
+        Button(
+            onClick = {
+                client.serverAddress = text.text
+                navController.navigate("${Routes.NetworksPage.name}?$client?$navController")
+            }, modifier = Modifier.padding(start = 8.dp)
         ) {
-            TextField(
-                value = text,
-                onValueChange = { newText -> text = newText },
-                singleLine = true,
-            )
-            Button(
-                onClick = {
-                    client.serverAddress = text.text
-                    navController.navigate("${Routes.NetworksPage.name}?$client?$navController")
-                }, modifier = Modifier.padding(start = 8.dp)
-            ) {
-                Text(stringResource(Res.string.find_server))
-            }
+            Text(stringResource(Res.string.find_server))
         }
     }
 }
+

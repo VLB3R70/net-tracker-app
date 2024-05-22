@@ -289,7 +289,7 @@ fun NettrackerTheme(
     }
 
     MaterialTheme(
-        colorScheme = colorScheme, typography = baseline, content = content
+        colorScheme = colorScheme, typography = appTypography, content = content
     )
 }
 
